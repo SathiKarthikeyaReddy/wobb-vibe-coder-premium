@@ -8,21 +8,24 @@ import { extractProfiles, filterProfiles } from "@/utils/dataHelpers";
 export function SearchPage() {
   const [platform, setPlatform] = useState<Platform>("instagram");
   const [searchQuery, setSearchQuery] = useState("");
-  const [clickCount, setClickCount] = useState(0);
 
   const allProfiles = extractProfiles(platform);
   const filtered = filterProfiles(allProfiles, searchQuery);
 
-  const handleProfileClick = (username: string) => {
-    setClickCount(clickCount + 1);
-    console.log("Clicked profile:", username, "total clicks:", clickCount);
+  const handleProfileClick = () => {
+    // Left for potential analytics tracking in a real app
   };
 
   return (
-    <Layout title="Find Influencers">
-      <p className="text-gray-500 mb-4 text-sm">
-        Browse top creators across social platforms
-      </p>
+    <Layout>
+      <div className="flex flex-col items-center text-center mb-10 mt-4 transition-colors">
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 transition-colors">
+          Discover Top Creators
+        </h2>
+        <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl transition-colors">
+          Browse our curated list of elite influencers across all major social platforms to find the perfect match for your brand.
+        </p>
+      </div>
 
       <PlatformFilter
         selected={platform}
@@ -34,9 +37,11 @@ export function SearchPage() {
         onSearchChange={setSearchQuery}
       />
 
-      <p className="text-xs text-gray-400 mb-2">
-        Showing {filtered.length} of {allProfiles.length} on {platform}
-      </p>
+      <div className="text-center mb-6">
+        <p className="text-sm font-medium text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-1.5 rounded-full inline-block shadow-sm transition-colors">
+          Showing <span className="text-slate-900 dark:text-white font-bold">{filtered.length}</span> creators on {platform}
+        </p>
+      </div>
 
       <ProfileList
         profiles={filtered}
