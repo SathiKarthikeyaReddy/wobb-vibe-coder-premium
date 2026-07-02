@@ -1,80 +1,64 @@
-# Wobb Frontend Assignment
+# Wobb Vibe Coder Assignment - Premium Redesign
 
-A starter influencer search application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. This project is intentionally left in a rough-but-working state for candidates to improve.
+This repository contains the completed frontend take-home assignment for the Vibe Coder Intern role at Wobb. The objective was to fix existing bugs, migrate state management, and overhaul the UI/UX. I decided to elevate the project to a **professional-grade, premium standard**, incorporating modern design paradigms like glassmorphism, fluid animations, and a responsive dark theme.
 
-## Getting Started
+## 🚀 Live Repository
+https://github.com/SathiKarthikeyaReddy/wobb-vibe-coder-premium
+
+## ✨ What Was Changed?
+
+1. **Bug Fixes & Refactoring**
+   - **Search Logic**: Fixed the case-sensitive filtering bug in `dataHelpers.ts` to ensure robust searches.
+   - **Data Calculation**: Corrected the engagement rate formatting error in the profile details (changing the multiplier from `* 10000` to `* 100`).
+   - **Optimization**: Removed unnecessary `clickCount` state in the search page that was causing redundant re-renders.
+
+2. **State Management Migration**
+   - Completely replaced the standard prop-drilling/Context setup with **Zustand**. 
+   - Created `useListStore` to manage the "Shortlisted Profiles" feature.
+   - Implemented Zustand's `persist` middleware to ensure the shortlist is saved to `localStorage` and persists across page reloads.
+
+3. **Premium UI/UX Redesign**
+   - **Design System**: Built a modern, sleek interface using **Tailwind CSS v4** featuring glassmorphism (`backdrop-blur`), carefully calibrated typography (Inter font), and an 8pt spacing grid.
+   - **Micro-Interactions**: Used **Framer Motion** to add fluid enter/exit animations to the shortlist sidebar and animated segmented tabs for platform filtering.
+   - **Dark Mode**: Integrated full dark mode support across the entire application using CSS variables and Tailwind's `dark:` variant, complete with a manual theme toggle.
+   - **User Feedback**: Replaced generic alerts with professional toast notifications using **Sonner**.
+
+4. **Component Architecture**
+   - Rebuilt `Layout.tsx` to include a sticky navigation bar with a dynamic shortlist badge.
+   - Introduced `ShortlistSidebar.tsx` as a sleek slide-out drawer for managing the selected profiles.
+   - Redesigned `ProfileCard.tsx` and `ProfileDetailPage.tsx` to resemble premium dashboard analytics views.
+
+## 📦 Libraries Added
+
+- **`zustand`**: For lightweight, scalable, and persistent global state management.
+- **`framer-motion`**: For layout transitions, spring animations, and micro-interactions.
+- **`lucide-react`**: For clean, modern, and consistent iconography.
+- **`sonner`**: For highly customizable and beautiful toast notifications.
+- **`usehooks-ts`**: Specifically used for `useDebounceValue` (optimizing search) and `useDarkMode`.
+- **`clsx` & `tailwind-merge`**: For robust, conditional utility class management.
+
+## 🤔 Assumptions Made
+- The prompt mentioned "Replace React Context with Zustand". Since no React Context existed in the starter code, I assumed this meant implementing the new global state (the Shortlist) strictly using Zustand to demonstrate state management competency.
+- Assumed the target audience prefers a modern "dashboard-like" aesthetic, leaning into clean metrics displays and immediate feedback.
+
+## ⚖️ Trade-offs
+- **Bundle Size vs. UX**: Adding libraries like `framer-motion` increases the initial bundle size. However, the trade-off was deemed acceptable for a "Vibe Coder" role where a premium user experience and "wow" factor are heavily prioritized.
+- **Local Storage**: For the shortlist persistence, I used standard browser `localStorage`. In a real production application with user authentication, this state would ideally be synced with a remote database.
+
+## 🔮 Remaining Improvements
+- **Code Splitting**: Implementing `React.lazy` and `Suspense` for the `ProfileDetailPage` to further optimize the initial load time.
+- **Virtualization**: If the JSON profile list grows to thousands of entries, a library like `react-window` or `@tanstack/react-virtual` should be used to render the `ProfileList` efficiently.
+- **Testing**: Adding a test suite using `Vitest` and `React Testing Library` to unit test the Zustand store and component rendering.
+
+## 🛠️ Running Locally
 
 ```bash
-npm install
+# Install dependencies
+npm install --legacy-peer-deps
+
+# Start the development server
 npm run dev
+
+# Build for production
+npm run build
 ```
-
-Open [http://localhost:5173](http://localhost:5173) to view the app.
-
-## What's Included
-
-- **Search / Dashboard** — filter influencers by platform (Instagram, YouTube, TikTok) and search by username or full name
-- **Profile Details** — click a profile to view extended data loaded from individual JSON files
-- **Routing** — `react-router-dom` with `/` (search) and `/profile/:username` (details)
-
-Sample data lives in:
-
-- `src/assets/data/search/` — platform search results (10 profiles each)
-- `src/assets/data/profiles/` — detailed profile JSON per username
-
-## How to Submit
-
-1. **Download or clone** this starter project to your machine.
-2. **Create a new repository** on your own GitHub account. Do not fork the original assignment repo — push your work to a repo you own.
-3. Complete the tasks below and push your changes to that repository.
-4. **Share the public GitHub repository URL** with us as your submission.
-
-### Deadline (strict)
-
-- **Due:** **2 July 2026, 2:00 PM IST** (Indian Standard Time, UTC+5:30)
-- **Any git commits made after this deadline will disqualify your submission.** We will only consider the repository state as of the deadline; late commits will not be reviewed.
-- Make sure your final work is pushed **before** the cutoff.
-
-## AI Usage
-
-You may use any AI tools (Cursor, ChatGPT, Claude, GitHub Copilot, etc.). We are evaluating your final solution and engineering decisions.
-
-## Your Tasks
-
-Complete the following as part of your submission:
-
-1. **Find and fix all bugs and quality issues** — the codebase contains intentional bugs and quality issues. Identify and resolve them.
-
-2. **Completely redesign the UI/UX** — replace the basic layout with a polished, modern interface. Focus on usability, visual hierarchy, and delight.
-
-3. **Replace React Context with Zustand** — when you implement state management for the selected list, use [Zustand](https://github.com/pmndrs/zustand) instead of React Context.
-
-4. **Implement "Select profile & Add to List"** — the disabled "Add to List" button is a stub. Build the full feature:
-   - Select / add profiles to a persistent list
-   - View and manage the selected list
-   - Handle duplicates appropriately
-
-5. **Improve code quality and project structure** — refactor as needed, add proper types, and follow React best practices.
-
-6. **Optimize performance** — apply sensible optimizations where appropriate.
-
-7. **Use any libraries you need** — you are not limited to the current stack. Choose tools that help you deliver a great result (UI kits, state managers, testing libraries, etc.).
-
-## Scripts
-
-| Command        | Description              |
-| -------------- | ------------------------ |
-| `npm run dev`  | Start development server |
-| `npm run build`| Production build         |
-| `npm run lint` | Run ESLint               |
-
-## Submission Notes
-
-- Document any assumptions or trade-offs in your README
-- Ensure `npm run build` passes before submitting
-- Focus on demonstrating your judgment — not every possible feature needs to be built, but the core assignment items should be addressed thoughtfully
-- Double-check that your repo is public (or that we have access) and that the link is included in your submission
-- Please make meaningful commits throughout your work. We may review your commit history.
-- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — include the live URL in your submission if you do
-
-Good luck!
